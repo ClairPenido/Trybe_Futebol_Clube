@@ -1,47 +1,15 @@
-// import Match from '../database/models/MatchModel';
-// import Team from '../database/models/TeamModel';
-// // import HttpException from '../utils/HttpException';
+import Team from '../database/models/TeamModel';
+// import HttpException from '../utils/HttpException';
 
-// export default class MatchService {
-//   private model = Match;
-//   public async getAllMatches() {
-//     const getAllMatches = await this.model.findAll({
-//       include: [{ // https://sequelize.org/docs/v6/advanced-association-concepts/advanced-many-to-many/
-//         model: Team,
-//         as: 'teamHome',
-//         attributes: {
-//           exclude: ['id'],
-//         },
-//       },
-//       {
-//         model: Team,
-//         as: 'teamAway',
-//         attributes: {
-//           exclude: ['id'],
-//         },
-//       }],
-//     });
-//     return getAllMatches;
-//   }
+export default class TeamService {
+  private model = Team;
+  public async getAllTeams() {
+    const getAllTeams = await this.model.findAll();
+    return getAllTeams;
+  }
 
-//   public async getFineshedMatches(inprogss = {}) {
-//     const returnProgress = inprogss === 'true';
-//     const getFineshedMatches = await this.model.findAll({ where: { inProgress: returnProgress },
-//       include: [{
-//         model: Team,
-//         as: 'teamHome',
-//         attributes: {
-//           exclude: ['id'],
-//         },
-//       },
-//       {
-//         model: Team,
-//         as: 'teamAway',
-//         attributes: {
-//           exclude: ['id'],
-//         },
-//       }],
-//     });
-//     return getFineshedMatches;
-//   }
-// }
+  public async getTeamById(id:string) {
+    const team = await this.model.findOne({ where: { id } });
+    return team;
+  }
+}

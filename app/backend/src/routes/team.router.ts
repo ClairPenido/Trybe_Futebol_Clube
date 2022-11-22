@@ -1,12 +1,12 @@
-// import { Router } from 'express';
-// import MatchController from '../controllers/MatchController';
-// import MatchService from '../services/MatchService';
+import { Router } from 'express';
+import TeamController from '../controllers/TeamController';
+import TeamService from '../services/TeamService';
 
-// const matchRouter = Router();
-// const matchService = new MatchService();
-// const matchController = new MatchController(matchService);
+const teamRouter = Router();
+const teamService = new TeamService();
+const teamController = new TeamController(teamService);
 
-// matchRouter.get('/', matchController.getFinishedMatches);
-// matchRouter.get('/', matchController.getAllMatches);
+teamRouter.get('/:id', teamController.getTeamById);
+teamRouter.get('/', teamController.getAllTeams);
 
-// export default matchRouter;
+export default teamRouter;
