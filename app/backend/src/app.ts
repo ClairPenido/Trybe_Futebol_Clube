@@ -1,4 +1,9 @@
+import 'express-async-errors';
 import * as express from 'express';
+// import errorMiddleware from './middlewares/error.middleware';
+// import loginRouter from './routes/login.router';
+// import teamRouter from './routes/team.router';
+// import matchRouter from './routes/match.router';
 
 class App {
   public app: express.Express;
@@ -10,7 +15,15 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    // this.routers();
   }
+
+  // public routers():void {
+  //   this.app.use('/login', loginRouter);
+  //   this.app.use('/teams', teamRouter);
+  //   this.app.use('/matches', matchRouter);
+  //   this.app.use(errorMiddleware);
+  // }
 
   private config():void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
