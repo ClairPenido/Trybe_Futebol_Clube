@@ -1,6 +1,7 @@
+import IMatch from '../interfaces/IMatch';
 import Match from '../database/models/MatchModel';
 import Team from '../database/models/TeamModel';
-// import HttpException from '../utils/HttpException';
+import HttpException from '../utils/HttpException';
 
 export default class MatchService {
   private model = Match;
@@ -65,5 +66,27 @@ export default class MatchService {
       }],
     });
     return getFinishedMatches;
+  }
+
+  public async addMatch(seila:IMatch):Promise<Match> {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = seila;
+    const verifyHomeTeam = await Team.findOne({ where: { id: homeTeam } });
+    const verifyAwayTeam = await Team.findOne({ where: { id: awayTeam } });
+    const newMatch = await this.model.create({ homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true });
+    if (!newMatch) throw new HttpException(401, 'Token must be a valid token');
+    if (!verifyHomeTeam || verifyAwayTeam) {
+      throw new HttpException(404, 'There is no team with such id!');
+    }
+    return newMatch;
+  }
+
+  public async updateMatch(id:string) {
+    const matches = await this.model.update({ inProgress: false }, { where: { id } });
+    if (!matches) throw new HttpException(401, 'Token must be a valid token');
+    return matches;
   }
 }

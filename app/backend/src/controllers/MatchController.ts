@@ -21,4 +21,14 @@ export default class MatchController {
     const finishedMatches = await this.matchService.getFinishedMatches(inProgress);
     res.status(200).json(finishedMatches);
   };
+
+  public addMatch = async (req:Request, res: Response, _next: NextFunction) => {
+    const addMatch = await this.matchService.addMatch(req.body);
+    res.status(201).json(addMatch);
+  };
+
+  public updateMatch = async (req:Request, res: Response, _next: NextFunction) => {
+    await this.matchService.updateMatch(req.params.id);
+    res.status(200).json({ message: 'Finished' });
+  };
 }

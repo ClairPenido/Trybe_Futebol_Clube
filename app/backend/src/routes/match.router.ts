@@ -6,6 +6,8 @@ const matchRouter = Router();
 const matchService = new MatchService();
 const matchController = new MatchController(matchService);
 
+matchRouter.post('/', matchController.addMatch);
+matchRouter.patch('/:id/finish', matchController.updateMatch);
 matchRouter.get('/', matchController.getFinishedMatches);
 matchRouter.get('/', matchController.getAllMatches);
 
