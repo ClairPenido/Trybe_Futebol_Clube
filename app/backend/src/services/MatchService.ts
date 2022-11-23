@@ -23,6 +23,7 @@ export default class MatchService {
     });
     return getAllMatches;
   }
+  //! colocar um if para verificar se é true ou false
 
   public async getInProgressMatches(inprogss = {}) {
     const returnProgress = inprogss === 'true';
