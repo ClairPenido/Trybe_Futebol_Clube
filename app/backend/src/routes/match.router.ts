@@ -8,6 +8,7 @@ const matchController = new MatchController(matchService);
 
 matchRouter.post('/', matchController.addMatch);
 matchRouter.patch('/:id/finish', matchController.updateMatch);
+matchRouter.patch('/:id', matchController.updateTeam);
 matchRouter.get('/', matchController.getFinishedMatches);
 matchRouter.get('/', matchController.getAllMatches);
 

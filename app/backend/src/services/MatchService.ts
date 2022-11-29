@@ -72,13 +72,16 @@ export default class MatchService {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = team;
     const verifyHomeTeam = await Team.findOne({ where: { id: homeTeam } });
     const verifyAwayTeam = await Team.findOne({ where: { id: awayTeam } });
+    if (verifyHomeTeam === verifyAwayTeam) {
+      throw new HttpException(422, 'It is not possible to create a match with two equal teams');
+    }
     const newMatch = await this.model.create({ homeTeam,
       awayTeam,
       homeTeamGoals,
       awayTeamGoals,
       inProgress: true });
     if (!newMatch) throw new HttpException(401, 'Token must be a valid token');
-    if (!verifyHomeTeam || verifyAwayTeam) {
+    if (!verifyHomeTeam || !verifyAwayTeam) {
       throw new HttpException(404, 'There is no team with such id!');
     }
     return newMatch;
@@ -87,6 +90,17 @@ export default class MatchService {
   public async updateMatch(id:string) {
     const matches = await this.model.update({ inProgress: false }, { where: { id } });
     if (!matches) throw new HttpException(401, 'Token must be a valid token');
+    return matches;
+  }
+
+  public async updateTeam(id:string, corpo:any) {
+    const { homeTeamGoals, awayTeamGoals } = corpo;
+    console.log('o que ta vindo:', corpo);
+    const matches = await this.model.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+    console.log(matches);
     return matches;
   }
 }
