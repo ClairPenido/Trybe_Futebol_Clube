@@ -68,8 +68,8 @@ export default class MatchService {
     return getFinishedMatches;
   }
 
-  public async addMatch(seila:IMatch):Promise<Match> {
-    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = seila;
+  public async addMatch(team:IMatch):Promise<Match> {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = team;
     const verifyHomeTeam = await Team.findOne({ where: { id: homeTeam } });
     const verifyAwayTeam = await Team.findOne({ where: { id: awayTeam } });
     const newMatch = await this.model.create({ homeTeam,
