@@ -3,8 +3,8 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import * as JWT from 'jsonwebtoken';
-import { App } from '../app';
-import { enterLogin, token, loginWithoutEmail, incorrectLogin } from '../mocks/section01.test';
+import App from '../app';
+import { enterLogin, token, loginWithoutEmail, incorrectLogin } from '../mocks/section01.mock';
 import { Response } from 'superagent';
 
 chai.use(chaiHttp);
