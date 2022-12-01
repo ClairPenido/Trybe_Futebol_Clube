@@ -6,6 +6,7 @@ const leaderboardRouter = Router();
 const leaderboardService = new LeaderboardService();
 const leaderboardController = new LeaderBoardController(leaderboardService);
 
+leaderboardRouter.get('/', leaderboardController.allLeaderBoardHome);
 leaderboardRouter.get('/home', leaderboardController.allLeaderBoardHome);
 leaderboardRouter.get('/away', leaderboardController.allLeaderBoardAway);
 
