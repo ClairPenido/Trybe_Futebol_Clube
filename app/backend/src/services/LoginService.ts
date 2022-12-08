@@ -22,8 +22,14 @@ export default class LoginService {
 
   public validateLogin = (token:string | undefined) => {
     if (!token) throw new HttpException(404, 'token not found');
-    const validateToken = jwt.verify(token, secret);
-    return validateToken as jwt.JwtPayload;
+    // const validateToken = jwt.verify(token, secret);
+    // return validateToken as jwt.JwtPayload;
+    try {
+      const validateToken = jwt.verify(token, secret);
+      return validateToken as jwt.JwtPayload;
+    } catch (error) {
+      throw new HttpException(401, 'Token must be a valid token');
+    }
   };
 
   private generateToken = (login:Users) => {

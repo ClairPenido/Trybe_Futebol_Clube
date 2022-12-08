@@ -20,7 +20,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
   const { error } = loginSchema.validate({ email, password });
   console.log('entrou joi', error);
   if (error?.details[0].type === 'string.email') {
-    // console.log('entrou no erro de email');
     throw new HttpException(401, 'Incorrect email or password');
   }
   if (error) throw new HttpException(400, error.details[0].message);
